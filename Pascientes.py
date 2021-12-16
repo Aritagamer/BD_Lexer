@@ -16,7 +16,7 @@ def Alta_Pac():
     
     find = SQL.consulta_BD(
         """
-            SELECT * FROM PACIENTES WHERE NSS = %s
+            SELECT * FROM PACIENTES WHERE NSS = '%s'
         """,
         (NSS)
     )
@@ -86,7 +86,7 @@ def Modif_Pac ():
     
     find = SQL.consulta_BD(
         """
-            SELECT * FROM PACIENTES WHERE NSS = %s
+            SELECT * FROM PACIENTES WHERE NSS = '%s'
         """,
         (NSS)
     )
@@ -146,7 +146,7 @@ def Elim_Pac ():
 
     find = SQL.consulta_BD(
         """
-            SELECT * FROM PACIENTES WHERE NSS = %s
+            SELECT * FROM PACIENTES WHERE NSS = '%s'
         """,
         (NSS)
     )
@@ -182,13 +182,158 @@ def Elim_Pac ():
 
 #_____________________________________________________SUBMENU CITAS_____________________________________________________________
 def Gen_cita():
-    pass
+    os.system("cls")
+    print("Se dara de alta una nueva cita por favor espere")
+    time.sleep(1)
+    os.system("cls")
+    print("Porfavor Proporcione los datos que se le piden acontinuacion:",end = "\n\n")
+    
+    print("Dia (DD/MM/AA):",end = " ")
+    day = input()
+    print("Horario (M,V):",end = " ")
+    Hor = (input()).upper()
+    
+    find = SQL.consulta_BD(
+        """
+            SELECT * FROM CITAS WHERE DIA = '%s' and HORARIO = '%s'
+        """,
+        (day,Hor)
+    )
+    if find:
+        os.system("cls")
+        print("Horario de cita ocupado porfavor revise los horarios disponibles")
+        time.sleep(1)
+
+        return
+    
+    
+    print("Numero de seguro social del paciente (NSS):",end = " ")
+    NSS = input()
+    print("Motivos:",end = " ")
+    Mot = input()
+
+    try:
+        SQL.Actualizar_BD(
+            """
+                INSERT INTO CITAS (DIA,PACIENTE,MOTIVO,HORARIO)
+                VALUES ('%s' , '%s', '%s', '%s')
+            """,
+            (day,NSS,Mot,Hor)
+        )
+    except Exception as e:
+        print("Ocurrio el error: ",e)
+
+        time.sleep(5)
+        return
+
+    print("\n\nCita generada con exito")
+    time.sleep(1)
+
+    return
 
 def Mos_cita():
-    pass
 
+    os.system("cls")
+
+    find = SQL.consulta_BD(
+        """
+            SELECT * FROM CITAS
+        """,
+        ()
+    )
+    if not find:
+        print ("No hay citas agendadas")
+        time.sleep(1.5)
+        return
+    
+    print("%5s %10s %10s %30s %2s" %("ID","Dia","NSS","Motivo","H",))
+    
+    for i in find:
+        print("%5s %10s %10s %30s %2s" %i)
+    input()
+    
 def Mod_cita():
-    pass
+    os.system("cls")
+    print("Escriba el dia y el horario de la cita que desea modificar:", end = " ")
+    print("Dia (DD/MM/AA):",end = " ")
+    day = input()
+    print("Horario (M,V):",end = " ")
+    Hor = (input()).upper()
+    
+    find = SQL.consulta_BD(
+        """
+            SELECT * FROM CITAS WHERE DIA = '%s' and HORARIO = '%s'
+        """,
+        (day,Hor)
+    )
+    if not find:
+        os.system("cls")
+        print("No hay citas agendadas en ese horario")
+        time.sleep(1)
+
+        return
+    os.system("cls")
+    
+    print("Ingrese los nuevos datos de la cita.\n\n")
+
+    print("Numero de seguro social del paciente (NSS):",end = " ")
+    NSS = input()
+    print("Motivos:",end = " ")
+    Mot = input()
+
+    try:
+        SQL.Actualizar_BD(
+            """
+                UPDATE CITAS SET DIA = '%s',PACIENTE = '%s',MOTIVO = '%s',HORARIO = '%s'
+                WHERE DIA = '%s' and HORARIO = '%s' 
+            """,
+            (day,NSS,Mot,Hor,day,Hor)
+        )
+    except Exception as e:
+        print("Ocurrio el error: ",e)
+
+        time.sleep(5)
+        return
+
+    print("\n\nCita generada con exito")
+    time.sleep(1)
+
+    return
+
 
 def Elim_cita():
-    pass
+    os.system("cls")
+    print("Escriba el ID de la cita que desea eliminar:", end = " ")
+    ID = int (input())
+
+    find = SQL.consulta_BD(
+        """
+            SELECT * FROM CITAS WHERE ID = '%d'
+        """,
+        (ID)
+    )
+    if not find:
+        os.system("cls")
+        print("La ID proporcionada no esta asociada a una cita")
+        time.sleep(1)
+
+        return
+
+    try:
+        SQL.Actualizar_BD(
+            """
+                DELETE FROM CITAS 
+                WHERE ID = '%s'
+            """,
+            (ID)
+        )
+    except Exception as e:
+        print("Ocurrio el error: ",e)
+
+        time.sleep(5)
+        return
+
+    print("Cita borrada correctamente")
+    time.sleep(1)
+
+    return

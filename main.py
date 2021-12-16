@@ -53,7 +53,9 @@ def mk_menu(titulo = "", elem = [],funci = []):
 
 
 if __name__ == "__main__":
+    os.system("mode con cols=200 lines=50")
     os.system("cls")
+
     print("Bienvenido al sistema de Gestion del Hospital")
     time.sleep(1)
     
@@ -78,14 +80,14 @@ if __name__ == "__main__":
                 (
                 titulo = "Menu: 'Citas'",
                 elem = ["Mostrar Citas","Generar nueva cita","Modificar cita","Eliminar cita","Regresar al menu anterior"],
-                funci = [lambda:mn1.Mostr_Pac() ,lambda:mn1.Alta_Pac()]
+                funci = [lambda:mn1.Mos_cita() ,lambda:mn1.Gen_cita(), lambda:mn1.Mod_cita(), lambda:mn1.Elim_cita()]
                 ),
                 ] 
         ),
         lambda:mk_menu(
             titulo="MENU: 'Personal' ",
-            elem = ["Dar de alta personal","Lista de personal","Horario de personal","Regresar al menu anterior"],
-            funci = [] ),
+            elem = ["Lista de personal","Horario de personal","Dar de alta personal","Modificar personal","Eliminar personal","Regresar al menu anterior"],
+            funci = [lambda:mn2.Mostr_Per(), lambda:mn2.Hor_Per() ,lambda:mn2.Alta_Per() ,lambda:mn2.Modif_Per(), lambda:mn2.Elim_Per()] ),
         lambda:mk_menu(
             titulo="MENU: 'Insumos' ",
             elem = ["Medicamentos","Instrumentos","Aparatos","Material","Regresar al menu anterior"],

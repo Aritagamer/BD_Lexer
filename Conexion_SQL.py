@@ -11,7 +11,7 @@ def consulta_BD(*args):
 	Conect=SQL.connect("./Hospital.db")
 
 	Curs=Conect.cursor()
-
+	#print(args[0])
 	Curs.execute(args[0] % args[1])
 
 	Res=Curs.fetchall()
