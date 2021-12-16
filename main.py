@@ -91,11 +91,73 @@ if __name__ == "__main__":
         lambda:mk_menu(
             titulo="MENU: 'Insumos' ",
             elem = ["Medicamentos","Instrumentos","Aparatos","Material","Regresar al menu anterior"],
-            funci = [] ),
+            funci = [
+                lambda:mk_menu
+                (
+                titulo = "Menu: 'Medicamentos'",
+                elem = ["Lista de medicamentos","Dar de alta medicamentos","Modificar medicamentos","Eliminar medicamentos","Regresar al menu anterior"],
+                funci = [lambda:mn3.Mostr_INS(1) ,lambda:mn3.Alta_INS(1), lambda:mn3.Modif_INS(1), lambda:mn3.Elim_INS(1)]
+                ),
+                lambda:mk_menu
+                (
+                titulo = "Menu: 'Instrumentos'",
+                elem = ["Lista de instrumentos","Dar de alta instrumentos","Modificar instrumentos","Eliminar instrumentos","Regresar al menu anterior"],
+                funci = [lambda:mn3.Mostr_INS(2) ,lambda:mn3.Alta_INS(2), lambda:mn3.Modif_INS(2), lambda:mn3.Elim_INS(2)]
+                ),
+                lambda:mk_menu
+                (
+                titulo = "Menu: 'Aparatos'",
+                elem = ["Lista de aparatos","Dar de alta aparatos","Modificar aparatos","Eliminar aparatos","Regresar al menu anterior"],
+                funci = [lambda:mn3.Mostr_INS(3) ,lambda:mn3.Alta_INS(3), lambda:mn3.Modif_INS(3), lambda:mn3.Elim_INS(3)]
+                ),
+                lambda:mk_menu
+                (
+                titulo = "Menu: 'Material'",
+                elem = ["Lista de materiales","Dar de alta materiales","Modificar materiales","Eliminar materiales","Regresar al menu anterior"],
+                funci = [lambda:mn3.Mostr_INS(4) ,lambda:mn3.Alta_INS(4), lambda:mn3.Modif_INS(4), lambda:mn3.Elim_INS(4)]
+                ),
+            ] ),
         lambda:mk_menu(
             titulo="MENU: 'Salas' ",
             elem = ["1er Almacen","2do Almacen","Enfermeria","Comedor","Quirofano","Urgencias","Regresar al menu anterior"],
-            funci = [] )
+            funci = [
+                lambda:mk_menu
+                (
+                titulo = "Menu: '1er Almacen'",
+                elem = ["Detalles de sala","Modificar detalles","Regresar al menu anterior"],
+                funci = [lambda:mn4.Mostr_sala(1) ,lambda:mn4.Mod_sala(1)]
+                ),
+                lambda:mk_menu
+                (
+                titulo = "Menu: '2do Almacen'",
+                elem = ["Detalles de sala","Modificar detalles","Regresar al menu anterior"],
+                funci = [lambda:mn4.Mostr_sala(2) ,lambda:mn4.Mod_sala(2)]
+                ),
+                lambda:mk_menu
+                (
+                titulo = "Menu: 'Enfermeria'",
+                elem = ["Detalles de sala","Modificar detalles","Regresar al menu anterior"],
+                funci = [lambda:mn4.Mostr_sala(3) ,lambda:mn4.Mod_sala(3)]
+                ),
+                lambda:mk_menu
+                (
+                titulo = "Menu: 'Comedor'",
+                elem = ["Detalles de sala","Modificar detalles","Regresar al menu anterior"],
+                funci = [lambda:mn4.Mostr_sala(4) ,lambda:mn4.Mod_sala(4)]
+                ),
+                lambda:mk_menu
+                (
+                titulo = "Menu: 'Quirofano'",
+                elem = ["Detalles de sala","Modificar detalles","Regresar al menu anterior"],
+                funci = [lambda:mn4.Mostr_sala(5) ,lambda:mn4.Mod_sala(5)]
+                ),
+                lambda:mk_menu
+                (
+                titulo = "Menu: 'Urgencias'",
+                elem = ["Detalles de sala","Modificar detalles","Regresar al menu anterior"],
+                funci = [lambda:mn4.Mostr_sala(6) ,lambda:mn4.Mod_sala(6)]
+                ),
+            ] )
     ])
             
 
